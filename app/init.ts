@@ -1,20 +1,30 @@
 /// <reference path="../node_modules/angular2/typings/browser.d.ts" />
+
 import {Component} from 'angular2/core';
 import {bootstrap} from 'angular2/platform/browser';
 
 import { DeudaComponent } from './deuda.component';
 
+
+
 @Component({
     selector: 'hello-app',
     template: `
-        <h1>Calculo de Infonavit</h1>
-		<p>Ingrese una tasa anual: {{tasa}} %</p>
-        Tasa anual: <input name="tasa" [value]="tasa" (keyup)="onKey($event)" (input)="tasa = $event.target.value">
-		<p>Ingrese su pago anual: $ {{anual}} MXN</p>
-		Pago anual: <input name="anual" [value]="anual" (keyup)="onKey($event)" (input)="anual = $event.target.value">
-		<p>Monto total a pagar al infonavit</p>
-		Monto a pagar: <input name="monto_total" [value]="monto_total" (keyup)="onKey($event)" (input)="monto_total = $event.target.value">
-		<button (click)="onCalc()">Calcular</button>
+    	<div class="form-group">
+    		<label for="tasa_anual">Ingrese una tasa anual: {{tasa}} %</label>
+    		<input name="tasa" class="form-control" [value]="tasa" (keyup)="onKey($event)" (input)="tasa = $event.target.value">
+    	</div>
+    	<div class="form-group">
+    		<label for="anual">Ingrese su pago anual: $ {{anual}} MXN</label>
+    		<input name="anual" class="form-control" [value]="anual" (keyup)="onKey($event)" (input)="anual = $event.target.value">
+    	</div>
+    	<div class="form-group">
+    		<label for="total">Monto total a pagar al infonavit</label>
+    		<input name="monto_total" class="form-control" [value]="monto_total" (keyup)="onKey($event)" (input)="monto_total = $event.target.value">
+    	</div>
+    	<div class="form-group">
+			<button type="button" class="btn btn-primary" (click)="onCalc()">Calcular</button>
+    	</div>
 
 		<my-hero-detail [deudas]="deudas"></my-hero-detail>
 
@@ -118,6 +128,10 @@ export class HelloApp {
 
 	onKey( event:any ){
 		this.valor = parseFloat( event.target.value );
+
+		if ( isNaN( this.valor ) ) {
+			this.valor = 0;
+		}
 		
 		if ( event.target.name == "anual" ) {
 			this.setAnual(this.valor);
@@ -131,7 +145,7 @@ export class HelloApp {
 			this.setMontoTotal(this.valor);
 		}
 
-		this.onCalc();
+		//this.onCalc();
 
 	}
 

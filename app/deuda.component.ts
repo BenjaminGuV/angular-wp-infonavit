@@ -3,7 +3,7 @@ import {Component, Input} from 'angular2/core';
 @Component({
   selector: 'my-hero-detail',
   template: `
-    <table>
+    <table class="table">
 		<tr>
 			<th>Año</th>
 			<th>Deuda</th>
