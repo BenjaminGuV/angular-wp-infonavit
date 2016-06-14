@@ -3,17 +3,17 @@ Calculo de infonavit
 
 
 #Instalación
-
+```sh
 npm install
-
+```
 #Crear librerias
-
+```sh
 webpack --progress --profile --colors 
-
+```
 #Ejemplo
 
-[Ejemplo](http://infonavit.nanos.pw/)
+[Pagina de ejemplo](http://infonavit.nanos.pw/)
 
-Imagen
+#Imagen
 
 ![alt text](http://drive.google.com/uc?export=view&id=0B59gRQNNhnGuX0pTdmpDSDdRa2M "Captura uno")
