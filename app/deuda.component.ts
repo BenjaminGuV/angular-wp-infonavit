@@ -1,31 +1,45 @@
-import {Component, Input} from 'angular2/core';
+import { Component, Input, OnInit } from 'angular2/core';
+import { Deuda } from './models/deuda.model';
+import { DeudaService } from './services/deudas.service';
 
 @Component({
-  selector: 'my-hero-detail',
-  template: `
-    <table class="table">
-		<tr>
-			<th>Año</th>
-			<th>Deuda</th>
-			<th>Pago a Capital</th>
-			<th>Pago a Interés</th>
-		</tr>
-		<tr *ngFor="let deuda of deudas">
-			<td>{{ deuda.anio }}</td>
-			<td>{{ deuda.total }}</td>
-			<td>{{ deuda.capital }}</td>
-			<td>{{ deuda.interes }}</td>
-		</tr>
-	</table>
-  `
+  selector: 'tabla-infonavit',
+  templateUrl: 'app/html/tabla-deuda.html',
+  providers: [ DeudaService ]
 })
 
-
 export class DeudaComponent {
-	@Input() deudas: any;
+	@Input() edeudas: Deuda[];
+	temp:any = [];
 
-	constructor(){
-		console.log("sada", this.deudas);
+	constructor(private deudaService: DeudaService) {
+		this.deudaService = deudaService;
+	}
+
+	getDeudas() {
+		this.temp    = this.deudaService.getDeudas();
+		this.edeudas = this.temp;
+
+		return this.temp;
+	}
+
+	setDeudas( datos ) {
+		this.deudaService.setDeudas( datos );
+		this.getDeudas()
+	}
+
+	clearDeudas(){
+
+		for (var i = 0; i < this.edeudas.length; ++i) {
+			delete this.edeudas[i];
+		}
+
+		this.edeudas = new Array();
+
+	}
+
+	ngOnInit() {
+		this.getDeudas();
 	}
 
 }

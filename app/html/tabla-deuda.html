@@ -1,0 +1,14 @@
+<table class="table">
+	<tr>
+		<th>Año</th>
+		<th>Deuda</th>
+		<th>Pago a Capital</th>
+		<th>Pago a Interés</th>
+	</tr>
+	<tr *ngFor="let edeuda of edeudas">
+		<td *ngIf="edeuda">{{ edeuda.anio }}</td>
+		<td *ngIf="edeuda">{{ edeuda.total }}</td>
+		<td *ngIf="edeuda">{{ edeuda.capital }}</td>
+		<td *ngIf="edeuda">{{ edeuda.interes }}</td>
+	</tr>
+</table>

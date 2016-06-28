@@ -1,2 +1,10 @@
 node_modules/
 *.log
+*.woff*
+*.svg
+*.ttf
+*.eot
+app.css
+app.css.map
+app.js
+app.js.map

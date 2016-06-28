@@ -3,44 +3,30 @@
 import {Component} from 'angular2/core';
 import {bootstrap} from 'angular2/platform/browser';
 
+//importando el componente deuda
+import { Deuda } from './models/deuda.model';
+import { DeudaService } from './services/deudas.service';
 import { DeudaComponent } from './deuda.component';
 
 
-
 @Component({
-    selector: 'hello-app',
-    template: `
-    	<div class="form-group">
-    		<label for="tasa_anual">Ingrese una tasa anual: {{tasa}} %</label>
-    		<input name="tasa" class="form-control" [value]="tasa" (keyup)="onKey($event)" (input)="tasa = $event.target.value">
-    	</div>
-    	<div class="form-group">
-    		<label for="anual">Ingrese su pago anual: $ {{anual}} MXN</label>
-    		<input name="anual" class="form-control" [value]="anual" (keyup)="onKey($event)" (input)="anual = $event.target.value">
-    	</div>
-    	<div class="form-group">
-    		<label for="total">Monto total a pagar al infonavit</label>
-    		<input name="monto_total" class="form-control" [value]="monto_total" (keyup)="onKey($event)" (input)="monto_total = $event.target.value">
-    	</div>
-    	<div class="form-group">
-			<button type="button" class="btn btn-primary" (click)="onCalc()">Calcular</button>
-    	</div>
-
-		<my-hero-detail [deudas]="deudas"></my-hero-detail>
-
-    `,
-	directives: [DeudaComponent]
+    selector: 'infonavit-app',
+    templateUrl: 'app/html/inicio.html',
+	directives: [DeudaComponent],
+	providers: [ DeudaService, DeudaComponent ]
 })
-export class HelloApp {
+
+export class InfonavitApp {
 	tasa: number        = 7;
 	anual: number       = 24000;
 	total: number       = 0;
 	valor: number       = 0;
 	monto_total: number = 200000;
 	temp: number        = 0;
-	anio: number = 0;
+	anio: number        = 0;
+	deudas: Deuda[];
 
-	deudas = DEUDAS;
+	constructor(private deudaComponent: DeudaComponent) { }
 
 	getTasa(): number {
 		return this.tasa;
@@ -78,14 +64,6 @@ export class HelloApp {
 
 		var ant_deuda   = 0;
 		var ant_capital = 0;
-		var obj_temp    : {
-			anio: number;
-			total: number;
-			capital: number;
-			interes: number;
-		}[];
-
-		console.log( this.temp );
 
 		do {
 			var pago_intereses = this.temp * (this.getTasa() / 100);
@@ -98,30 +76,35 @@ export class HelloApp {
 				deuda = ant_deuda - ant_capital;
 			}
 
-
 			deuda          = Math.round( deuda * 100) / 100;
 			pago_capital   = Math.round( pago_capital *  100 ) / 100;
 			pago_intereses = Math.round( pago_intereses  * 100 ) / 100;
-			console.log("datos", this.anio, deuda, pago_capital, pago_intereses);
-
-			DEUDAS.push({
-				anio: this.anio,
-				total: deuda,
-				capital: pago_capital,
-				interes: pago_intereses
-			});
-
-
-			ant_deuda   = deuda;
-			ant_capital = pago_capital;
+			//console.log("datos", this.anio, deuda, pago_capital, pago_intereses);
 
 			this.temp = deuda - pago_capital;
 
-			this.anio++;
+			if( deuda > 0 ) {
+				this.deudaComponent.setDeudas( {
+					anio: this.anio,
+					total: deuda,
+					capital: pago_capital,
+					interes: pago_intereses
+				});
+
+				ant_deuda   = deuda;
+				ant_capital = pago_capital;
+
+				this.anio++;
+				// code...
+			}
+
 
 		} while (this.temp > 0);
 
-		console.log( DEUDAS );
+		this.temp = 0;
+		this.anio = 0;
+
+		//this.deudaComponent.clearDeudas();
 
 		return this.total;
 	}
@@ -145,34 +128,14 @@ export class HelloApp {
 			this.setMontoTotal(this.valor);
 		}
 
-		//this.onCalc();
+	}
 
+	onClear(){
+		this.deudaComponent.clearDeudas();
 	}
 
 }
 
-//datos infonavit
-
-export class Deuda {
-	anio: number;
-	total: number;
-	capital: number;
-	interes: number;
-
-	/*constructor(anio: number, total: number, capital: number, interes: number) {
-		this.anio    = anio;
-		this.total   = total;
-		this.capital = capital;
-		this.interes = interes;
-    }
-
-	add(deuda: Deuda) {
-        return new Deuda( deuda.anio, deuda.total, deuda.capital, deuda.interes );
-    }*/
 
 
-}
-
-var DEUDAS: Deuda[] = [];
-
-bootstrap(HelloApp);
+bootstrap(InfonavitApp);

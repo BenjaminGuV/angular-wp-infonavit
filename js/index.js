@@ -6,6 +6,5 @@ require("../css/style.css");
 require("../node_modules/bootstrap/dist/css/bootstrap.css");
 
 $(document).ready(function(){
-	console.log("this");
 	//$('body').append('<p>Success!</p>');
 });

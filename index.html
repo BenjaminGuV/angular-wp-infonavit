@@ -17,11 +17,20 @@
                     <a class="btn btn-lg btn-success" href="http://portal.infonavit.org.mx/wps/wcm/connect/infonavit/trabajadores/ya_obtuve_mi_credito/ya+obtuve+mi+credito+que+sigue/todo_lo_que_necesitas_saber_sobre_tus_pagos/como_se_conforma_el_pago_de_tu_credito" target="_blank">Ir a infonavit</a>
                 </p>
             </div>
-    	   <hello-app>Loading...</hello-app>
+    	   <infonavit-app>Loading...</infonavit-app>
         </div>
 
+        <script src="http://localhost:3000/socket.io/socket.io.js"></script>
     	<script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
         <!-- Latest compiled and minified JavaScript -->
         <script type="text/javascript" src="js/app.js" charset="utf-8"></script>
+        <script>
+            var params = {query: 'name=' + document.URL};
+            var socket = io.connect('http://localhost:3000', params );
+
+            socket.on('conexion', function (data) {
+                console.log("this", data);
+            });
+        </script>
     </body>
 </html>
