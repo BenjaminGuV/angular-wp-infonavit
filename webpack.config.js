@@ -43,7 +43,10 @@ module.exports = {
             $: 'jquery',
             jquery: 'jquery'
         }),
-        new ExtractTextPlugin("css/app.css")
+        new ExtractTextPlugin("css/app.css"),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: { warnings: false }
+        })
     ],
     resolve: {
         alias: {
