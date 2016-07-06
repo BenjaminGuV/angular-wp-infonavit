@@ -65,6 +65,10 @@ export class InfonavitApp {
 		var ant_deuda   = 0;
 		var ant_capital = 0;
 
+		if( this.deudaComponent.getDeudas().length > 0 ) {
+			this.deudaComponent.clearDeudas();
+		}
+
 		do {
 			var pago_intereses = this.temp * (this.getTasa() / 100);
 			var pago_capital   = this.getAnual() - pago_intereses;
