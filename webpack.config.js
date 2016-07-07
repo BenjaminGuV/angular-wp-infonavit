@@ -6,7 +6,11 @@ module.exports = {
     entry: {
         //angular: "./app/init.ts",
         //app: "./js/index.js"
-        app: [ "./app/init.ts", "./js/index.js", "./node_modules/bootstrap/dist/js/bootstrap.js" ]
+        app: [ 
+            "./app/init.ts", 
+            "./node_modules/bootstrap/dist/js/bootstrap.js",
+            "./js/index.js"
+        ]
     },
     output: {
         path: __dirname,
