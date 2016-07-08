@@ -2,6 +2,8 @@
     <head>
         <title>Infonavit</title>
         <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" href="css/app.css">
     </head>
     <body>
@@ -20,17 +22,17 @@
     	   <infonavit-app>Loading...</infonavit-app>
         </div>
 
-        <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+        <!--<script src="http://localhost:3000/socket.io/socket.io.js"></script>-->
     	<script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
         <!-- Latest compiled and minified JavaScript -->
         <script type="text/javascript" src="js/app.js" charset="utf-8"></script>
-        <script>
+        <!--<script>
             var params = {query: 'name=' + document.URL};
             var socket = io.connect('http://localhost:3000', params );
 
             socket.on('conexion', function (data) {
                 console.log("this", data);
             });
-        </script>
+        </script>-->
     </body>
 </html>
